@@ -12,4 +12,9 @@ class Helpers {
     {
         return (int) Str::substr($param, -1) & 1;
     }
+
+    public static function getDateUTC()
+    {
+        return (new DateTime())->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+    }
 }
