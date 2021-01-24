@@ -47,6 +47,7 @@ class DeviceController extends Controller
 
             //oluşturulan client_token uid ve appid ye göre cache'e kaydedilir
             Cache::put($request->uid . '-' . $request->appId, $device->client_token, $seconds = $this->seconds);
+            Cache::put($device->client_token, $device->id, $seconds = $this->seconds);
         }
 
         return response()->json(
