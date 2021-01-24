@@ -57,12 +57,12 @@ class SubscriptionController extends Controller
          */
         if (Helpers::oddControl($request->receipt)){
                  Http::fakeSequence()
-                    ->push(['message' => 'OK', 'status' => 'true', 'expire_date' => Helpers::getDateUTC()], 200)
+                    ->push(['result' => 'true', 'message' => 'OK', 'status' => 'true', 'expire_date' => Helpers::getDateUTC()], 200)
                     ->whenEmpty(Http::response());
         }
         else {
             Http::fake(function ($request) {
-                return Http::response(['message' => 'FAIL', 'status' => 'false'], 400);
+                return Http::response(['result' => 'false', 'message' => 'FAIL', 'status' => 'false'], 400);
             });
         }
 
@@ -96,13 +96,13 @@ class SubscriptionController extends Controller
                     "result" => "true",
                     "message" => "İşlem Gerçekleştirildi"
                 ),
-                400
+                200
             );
         }
 
         return response()->json(
             array(
-                "result" => "FAIL",
+                "result" => "false",
                 "message" => "İşlem Gerçekleştirilemedi"
             ),
             400
