@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Helpers\Helpers;
 use App\Models\Device;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Subscription\CheckRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\Subscription\CreateRequest;
@@ -106,6 +107,53 @@ class SubscriptionController extends Controller
             ),
             400
         );
+
+    }
+
+
+    public function checkSubscription(CheckRequest $request)
+    {
+        /**
+         * istek yapan client_token cache'de kayıtlı değilse database'i kontrol eder
+         * eğer orada da yoksa böyle bir cihaz register olmamıştır
+         */
+        $device_id = Cache::remember($request->client_token, $seconds = $this->seconds, function () use ($request) {
+            return Device::select('id')->where('client_token', $request->client_token)->value('id');
+        });
+
+        /**
+         * device bulunamadıysa response dön
+         */
+        if (!$device_id) {
+            return response()->json(
+                array(
+                    "result" => "false",
+                    "message" => "Cihaz Bulunamadı"
+                ),
+                400
+            );
+        }
+
+        $subscription = Subscription::select('status', 'expire_date')->where('device_id', $device_id)->first();
+
+        if ($subscription) {
+            return response()->json(
+                array(
+                    "result" => "true",
+                    "message" => $subscription
+                ),
+                200
+            );
+        }
+        else{
+            return response()->json(
+                array(
+                    "result" => "false",
+                    "message" => "Abonelik kaydı bulunamadı"
+                ),
+                400
+            );
+        }
 
     }
 
