@@ -30,4 +30,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'endpoint' => env('GOOGLE_SERVICE_ENDPOINT'),
+        'user' => env('GOOGLE_SERVICE_USERNAME'),
+        'password' => env('GOOGLE_SERVICE_PASSWORD'),
+    ],
+
+    'ios' => [
+        'endpoint' => env('IOS_SERVICE_ENDPOINT'),
+        'user' => env('IOS_SERVICE_USERNAME'),
+        'password' => env('IOS_SERVICE_PASSWORD'),
+    ],
+
 ];
