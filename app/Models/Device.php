@@ -18,6 +18,6 @@ class Device extends Model
 
     public function createClientToken() //Benzersiz bir client_token oluştur
     {
-        return $this->attributes['uid'] . $this->attributes['appId'] . Str::random(50);
+        return $this->attributes['uid'] . '-' . $this->attributes['appId']  . '-' .  (string) Str::uuid();
     }
 }
