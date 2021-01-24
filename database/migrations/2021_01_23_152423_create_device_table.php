@@ -15,11 +15,11 @@ class CreateDeviceTable extends Migration
     {
         Schema::create('device', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('uid');
-            $table->unsignedBigInteger('appId');
+            $table->string('uid', 50)->index();
+            $table->string('appId', 50);
             $table->string('language', 20);
             $table->string('operating_system', 50);
-            $table->string('client_token')->unique();
+            $table->string('client_token', 128)->unique();
         });
     }
 
