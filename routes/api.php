@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/devices', 'DeviceController@store');
 
-Route::apiResource('subscriptions', 'SubscriptionController');
+Route::post('/subscriptions', 'SubscriptionController@store');
+Route::get('/subscriptions', 'SubscriptionController@checkSubscription');
 
