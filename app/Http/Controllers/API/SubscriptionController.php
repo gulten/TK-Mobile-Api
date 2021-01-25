@@ -49,7 +49,7 @@ class SubscriptionController extends Controller
         }
         else {
             Http::fake(function ($request) {
-                return Http::response(['result' => 'false', 'message' => 'FAIL', 'status' => 'false'], 400);
+                return Http::response(['result' => 'true', 'message' => 'OK', 'status' =>'false', 'expire_date' => Helpers::getDateUTC()], 400);
             });
         }
 
@@ -72,8 +72,8 @@ class SubscriptionController extends Controller
             Subscription::updateOrCreate(
                 ['device_id' => $device_id],
                 [
-                    'status' => $response[ 'status'],
-                    'expire_date ' => $response[ 'expire_date'],
+                    'status' => $response['status'],
+                    'expire_date ' => $response['expire_date'],
                     'service' => $request->service,
                     'third_party_url' => $request->third_party_url
                 ]
@@ -81,6 +81,7 @@ class SubscriptionController extends Controller
             return response()->json(
                 array(
                     "result" => "true",
+                    'status' => $response['status'],
                     "message" => "İşlem Gerçekleştirildi"
                 ),
                 200
