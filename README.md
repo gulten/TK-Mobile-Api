@@ -27,3 +27,8 @@ Device tablosunda işlemlerin hızlanmasına katkı sağlayabilmek için "Redis 
 - IOS_SERVICE_PASSWORD=
 
 - L5_SWAGGER_CONST_HOST=
+
+
+## Worker Bilgilendirme
+
+DB içerisinde milyonlarca veri bulunacağını göz önüne aldığımızda ve iOS ve Google API’ları mobile application taraflı rate-limitleri bulunması, aynı gün içerisinde belli istek sayısının servis tarafında cevaplanması, diğer isteklerin ise limite takılması sebebiyle cevaplanmaması sorun olacaktır. Bu problemin üstesinden gelinebilmesi için servislerin bize sunduğu publish/subscribe (pub/sub) mimarisine uygun hizmetler varsa onlardan faydalanabilir. Bu hizmetler periyodik olarak çalışan sistemlerle uyumlu değildir. ("WebSocket - Receiving Broadcasts - Listening For Events").
