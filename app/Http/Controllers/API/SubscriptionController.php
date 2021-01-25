@@ -35,19 +35,6 @@ class SubscriptionController extends Controller
         });
 
         /**
-         * device bulunamadıysa response dön
-         */
-        if(!$device_id) {
-            return response()->json(
-                array(
-                    "result" => "false",
-                    "message" => "Cihaz Bulunamadı"
-                ),
-                400
-            );
-        }
-
-        /**
          * config/service aracılığı ile service endpoint değeri elde ediliyor
          */
         $end_point = config('services.' . $request->service . '.endpoint');
@@ -120,19 +107,6 @@ class SubscriptionController extends Controller
         $device_id = Cache::remember($request->client_token, $seconds = $this->seconds, function () use ($request) {
             return Device::select('id')->where('client_token', $request->client_token)->value('id');
         });
-
-        /**
-         * device bulunamadıysa response dön
-         */
-        if (!$device_id) {
-            return response()->json(
-                array(
-                    "result" => "false",
-                    "message" => "Cihaz Bulunamadı"
-                ),
-                400
-            );
-        }
 
         $subscription = Subscription::select('status', 'expire_date')->where('device_id', $device_id)->first();
 
