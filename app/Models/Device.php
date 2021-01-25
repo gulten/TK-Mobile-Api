@@ -18,6 +18,11 @@ class Device extends Model
 
     public function createClientToken() //Benzersiz bir client_token oluştur
     {
-        return $this->attributes['uid'] . '-' . $this->attributes['appId']  . '-' .  (string) Str::uuid();
+        return bin2hex(random_bytes(64));
+        /* burada üretilen karakter dizisinin benzzersiz olması önemli
+        *  önlem olarak başka yöntemler de eklenebilir
+        *  her üretim sonunda tablo içerisinde bu client_token ile kayıtlı bir satır olup olmadığı kontrol edilebilir
+        */
+
     }
 }
