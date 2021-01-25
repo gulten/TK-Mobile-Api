@@ -14,4 +14,10 @@ class Subscription extends Model
     protected $table = 'subscription';
 
     public $timestamps = false;
+
+    protected $dispatchesEvents = [
+        'creating' => \App\Events\SubscriptionCreatingEvent::class,
+        'updating' => \App\Events\SubscriptionChangingEvent::class,
+    ];
+
 }
