@@ -1,0 +1,122 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tk Mobile API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/devices": {
+            "post": {
+                "summary": "DeviceController@store",
+                "description": "Cihaz Eklemek İçin Kullanılır",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "uid",
+                                    "appId",
+                                    "language",
+                                    "operating_system"
+                                ],
+                                "properties": {
+                                    "uid": {
+                                        "type": "string"
+                                    },
+                                    "appId": {
+                                        "type": "string"
+                                    },
+                                    "language": {
+                                        "type": "string"
+                                    },
+                                    "operating_system": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                }
+            }
+        },
+        "/api/subscriptions": {
+            "get": {
+                "summary": "SubscriptionController@checkSubscription",
+                "description": "Abonelik Kontrolü İçin Kullanılır",
+                "parameters": [
+                    {
+                        "name": "client_token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                }
+            },
+            "post": {
+                "summary": "SubscriptionController@store",
+                "description": "Abonelik Eklemek veya Güncellemek İçin Kullanılır",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "client_token",
+                                    "receipt",
+                                    "service",
+                                    "third_party_url"
+                                ],
+                                "properties": {
+                                    "client_token": {
+                                        "type": "string"
+                                    },
+                                    "receipt": {
+                                        "type": "string"
+                                    },
+                                    "service": {
+                                        "type": "string"
+                                    },
+                                    "third_party_url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
